@@ -1,6 +1,6 @@
 # animals-CRUD
 MERN stack CRUD app demonstrator, stores the name of an animal and whether or not it's endangered. You can Create a new animal,
-Update its name or status, read the full contents of the databasd, or delete an animal. 
+Update its name or status, Read the full contents of the database, or Delete an animal. 
 
 Uses the MERN stack, MongoDB Atlas, Express, React, Node. 
 

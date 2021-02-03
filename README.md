@@ -1,5 +1,5 @@
 # animals-CRUD
-Full stack CRUD app demonstrator, stores the name of an animal and whether or not it's endangered.
+MERN stack CRUD app demonstrator, stores the name of an animal and whether or not it's endangered.
 
 Uses the MERN stack, MongoDB Atlas, Express, React, Node. 
 

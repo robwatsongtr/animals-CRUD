@@ -1,3 +1,5 @@
+// This component will allow the user to create a new animal in the database.
+
 import React, { Component } from 'react';
 
 export default class CreateAnimal extends Component {

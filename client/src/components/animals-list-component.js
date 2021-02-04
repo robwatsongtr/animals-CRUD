@@ -1,3 +1,5 @@
+// This component will list the contents of the animal database. 
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 

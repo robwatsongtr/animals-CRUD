@@ -1,14 +1,16 @@
-// This component will allow the user to create a new animal in the database.
+// This component will allow the user to CREATE a new animal in the database.
 
 import React, { Component } from 'react';
 
 export default class CreateAnimal extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       animal_name: '',
       animal_isEndangered: ''
     }
+
     this.onChangeAnimalName = this.onChangeAnimalName.bind(this);
     this.onChangeIsEndangered = this.onChangeIsEndangered.bind(this);
     this.onSubmit = this.onSubmit.bind(this);

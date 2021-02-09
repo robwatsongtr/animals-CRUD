@@ -10,7 +10,7 @@ const Animal = props => {
     <td>{props.animal.name}</td>
     <td>{props.animal.isEndangered ? "yes" : "no" }</td>
     <td>
-      <Link to={"/" + props.animal._id}>Edit</Link>
+      <Link to={"/edit/" + props.animal._id}>Edit</Link>
     </td>
   </tr>
   )

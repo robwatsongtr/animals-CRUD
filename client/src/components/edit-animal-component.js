@@ -16,7 +16,7 @@ export default class EditAnimal extends Component {
     this.onChangeIsEndangered = this.onChangeIsEndangered.bind(this);
     this.onDeleteAnimal = this.onDeleteAnimal.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.logConsoleGetAnimal = this.logConsoleGetAnimal.bind(this);
+    
   }
 
   // Retrieve(GET) an animal *based on its ID* and update state
@@ -29,7 +29,7 @@ export default class EditAnimal extends Component {
       }
     })
     .then( response => {
-      console.log( "get animal by id response");
+      console.log( "GET animal by id response");
       return response.json()
     })
     .then( data => {
@@ -44,27 +44,48 @@ export default class EditAnimal extends Component {
     })
   }
 
-  logConsoleGetAnimal(e) {
-    let logName = this.state.animal_name;
-    let logIsEndangered = this.state.animal_isEndangered;
-    console.log(logName);
-    console.log(logIsEndangered);
-  }
-
+  
   onChangeAnimalName(e) {
-
+    this.setState({
+      animal_name: e.target.value
+    })
   }
 
   onChangeIsEndangered(e) {
-
+    this.setState({
+      animal_isEndangered: e.target.value
+    })
   }
 
   onDeleteAnimal(e) {
 
   }
 
+  // This should update the name and endagered status of the animal
+  // being edited. 
   onSubmit(e) {
+    e.preventDefault();
+    let data = {
+      "name": this.state.animal_name,
+      "isEndangered": this.state.animal_isEndangered
+    }
 
+    fetch('http://localhost:5000' + this.props.match.params.id, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch( (error) => {
+      console.log(error);
+    })
+    this.props.history.push('/'); // tells router to go back to default route
   }
 
   render() {
@@ -90,7 +111,7 @@ export default class EditAnimal extends Component {
                 name="isEndangeredStatus"
                 id="isEndangered"
                 value="true"
-                checked={this.state.animal_isEndangered === "true"}
+                checked={this.state.animal_isEndangered}
                 onChange={this.onChangeIsEndangered}
               />
               <label className="form-check-label">Is Endangered</label>
@@ -101,7 +122,7 @@ export default class EditAnimal extends Component {
                 name="isEndangeredStatus"
                 id="isNotEndangered"
                 value="false"
-                checked={this.state.animal_isEndangered === "false"}
+                checked={!this.state.animal_isEndangered}
                 onChange={this.onChangeIsEndangered}
               />
               <label className="form-check-label">Is Not Endangered</label>
@@ -111,10 +132,10 @@ export default class EditAnimal extends Component {
           <div className="form-group">
             <input type="submit" value="Update Animal" className="btn btn-primary" />
           </div>
-          {this.logConsoleGetAnimal()}
+          
+
         </form>
 
-        
       </div>
       
     )

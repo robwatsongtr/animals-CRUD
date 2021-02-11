@@ -57,6 +57,7 @@ export default class CreateAnimal extends Component {
       animal_name: '',
       animal_isEndangered: '' 
     })
+    this.props.history.push('/'); // tells router to go back to default route
   }
 
   render() {

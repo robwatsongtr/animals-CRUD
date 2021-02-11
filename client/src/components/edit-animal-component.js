@@ -15,8 +15,7 @@ export default class EditAnimal extends Component {
     this.onChangeAnimalName = this.onChangeAnimalName.bind(this);
     this.onChangeIsEndangered = this.onChangeIsEndangered.bind(this);
     this.onDeleteAnimal = this.onDeleteAnimal.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    
+    this.onSubmit = this.onSubmit.bind(this); 
   }
 
   // Retrieve(GET) an animal *based on its ID* and update state
@@ -44,7 +43,6 @@ export default class EditAnimal extends Component {
     })
   }
 
-  
   onChangeAnimalName(e) {
     this.setState({
       animal_name: e.target.value
@@ -53,24 +51,35 @@ export default class EditAnimal extends Component {
 
   onChangeIsEndangered(e) {
     this.setState({
-      animal_isEndangered: e.target.value
+      animal_isEndangered: e.target.value === "true"
     })
   }
 
   onDeleteAnimal(e) {
-
+    fetch('http://localhost:5000/' + this.props.match.params.id , {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    .then( () => {
+      console.log('removed');
+    })
+    .catch( (err) => {
+      console.log(err);
+    })
+    this.props.history.push('/'); // tells router to go back to default route
   }
 
-  // This should update the name and endagered status of the animal
-  // being edited. 
+ 
   onSubmit(e) {
     e.preventDefault();
     let data = {
       "name": this.state.animal_name,
       "isEndangered": this.state.animal_isEndangered
     }
-
-    fetch('http://localhost:5000' + this.props.match.params.id, {
+    fetch('http://localhost:5000/' + this.props.match.params.id, {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -85,7 +94,7 @@ export default class EditAnimal extends Component {
     .catch( (error) => {
       console.log(error);
     })
-    this.props.history.push('/'); // tells router to go back to default route
+    this.props.history.push('/');
   }
 
   render() {
@@ -94,7 +103,6 @@ export default class EditAnimal extends Component {
         <h3>Update Animal</h3>
 
         <form onSubmit={this.onSubmit}>
-
           <div className="form-group">
             <label>Name: </label>
             <input type="text"
@@ -132,9 +140,15 @@ export default class EditAnimal extends Component {
           <div className="form-group">
             <input type="submit" value="Update Animal" className="btn btn-primary" />
           </div>
-          
-
         </form>
+
+        <button 
+          type="button"
+          className="btn btn-primary"
+          onClick={this.onDeleteAnimal}
+        >
+        Delete 
+        </button>
 
       </div>
       
